@@ -25,7 +25,10 @@ public class main extends Application{
         window.setTitle("Joon");
 
         button = new Button("Click me");
-        button.setOnAction(e-> AlertBox.display("Title","window modal"));
+        button.setOnAction(e-> {
+            boolean result = ConfirmBox.display("Title of Window", "Are you sure want to send naked pics?");
+            System.out.println(result);
+        });
 
         StackPane layout = new StackPane();
         layout.getChildren().add(button);
