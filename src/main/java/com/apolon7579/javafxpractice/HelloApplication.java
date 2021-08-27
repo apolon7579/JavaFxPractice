@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application implements EventHandler<ActionEvent> {
+public class HelloApplication extends Application{
 
     Button button;
 
@@ -22,7 +22,10 @@ public class HelloApplication extends Application implements EventHandler<Action
         button = new Button();
         button.setText("Click me");
 
-        button.setOnAction(this);
+        button.setOnAction(e -> {
+            System.out.println("람다식 연습");
+            System.out.println("여러줄도 실행가능");
+        });
 
         StackPane layout = new StackPane();
         layout.getChildren().add(button);
@@ -33,12 +36,7 @@ public class HelloApplication extends Application implements EventHandler<Action
 
     }
 
-    @Override
-    public void handle(ActionEvent actionEvent) {
-        if(actionEvent.getSource() == button){
-            System.out.println("Button Clicked");
-        }
-    }
+
 
     public static void main(String[] args) {
         launch();
