@@ -32,11 +32,10 @@ public class main extends Application{
         choiceBox.getItems().add("Apple");
         choiceBox.getItems().add("Bananas");
         choiceBox.getItems().addAll("Bacon", "Ham", "Meatballs");
-
-        //Set a default value
         choiceBox.setValue("Apple");
 
-        button.setOnAction(e -> getChoice(choiceBox));
+        //Listen for selection changes
+        choiceBox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> System.out.println(newValue));
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
@@ -47,10 +46,7 @@ public class main extends Application{
         window.show();
     }
 
-    private void getChoice(ChoiceBox<String> choiceBox){
-        String food = choiceBox.getValue();
-        System.out.println(food);
-    }
+
 
     public static void main(String[] args) {
         launch();
