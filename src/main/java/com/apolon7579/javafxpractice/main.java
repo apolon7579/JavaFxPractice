@@ -19,33 +19,40 @@ public class main extends Application{
     Stage window;
     Scene scene;
     Button button;
+    ComboBox<String> comboBox;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         window = primaryStage;
         window.setTitle("Joon");
-        button = new Button("Click me");
+        button = new Button("Submit");
 
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        comboBox = new ComboBox<>();
+        comboBox.getItems().addAll(
+                "Good Will Hunting",
+                "St. Vincent",
+                "Blackhat"
+        );
 
-        //getItems returns the ObservableList object which you can add items to
-        choiceBox.getItems().add("Apple");
-        choiceBox.getItems().add("Bananas");
-        choiceBox.getItems().addAll("Bacon", "Ham", "Meatballs");
-        choiceBox.setValue("Apple");
+        comboBox.setPromptText("What is your favorite movie?");
 
-        //Listen for selection changes
-        choiceBox.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> System.out.println(newValue));
+        comboBox.setEditable(true);
+
+        button.setOnAction(e -> printMovie());
+        comboBox.setOnAction( e -> System.out.println("User selected: " + comboBox.getValue() ));
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(choiceBox,button);
+        layout.getChildren().addAll(comboBox, button);
 
         scene = new Scene(layout, 300, 250);
         window.setScene(scene);
         window.show();
     }
 
+    private void printMovie(){
+        System.out.println(comboBox.getValue());
+    }
 
 
     public static void main(String[] args) {
