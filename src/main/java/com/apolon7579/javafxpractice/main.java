@@ -45,10 +45,25 @@ public class main extends Application{
 
         MenuItem paste = new MenuItem("Paste");
         paste.setOnAction(e -> System.out.println("Paste some crap"));
+        paste.setDisable(true);
         editMenu.getItems().add(paste);
 
+        //Help Menu
+        Menu helpMenu = new Menu("Help");
+        CheckMenuItem showLines = new CheckMenuItem("Show Line Numbers");
+        showLines.setOnAction(e -> {
+            if(showLines.isSelected()){
+                System.out.println("Program will now display line numbers");
+            }else{
+                System.out.println("Hiding line number");
+            }
+        });
+        CheckMenuItem autoSave = new CheckMenuItem("Enable Autosave");
+        autoSave.setSelected(true);
+        helpMenu.getItems().addAll(showLines, autoSave);
+
         MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(fileMenu, editMenu);
+        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
 
 
         layout = new BorderPane();
