@@ -20,87 +20,31 @@ import java.util.Stack;
 public class main extends Application{
 
     Stage window;
-    TableView<Product> table;
-    TextField nameInput, priceInput, quantityInput;
+    BorderPane layout;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         window = primaryStage;
         window.setTitle("Joon");
 
-        TableColumn<Product, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(200);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        Menu fileMenu = new Menu("File");
 
-        TableColumn<Product, Double> priceColumn = new TableColumn<>("Price");
-        priceColumn.setMinWidth(100);
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        fileMenu.getItems().add(new MenuItem("New Project..."));
+        fileMenu.getItems().add(new MenuItem("New Module..."));
+        fileMenu.getItems().add(new MenuItem("Import Project..."));
 
-        TableColumn<Product, String> quantityColumn = new TableColumn<>("Quantity");
-        quantityColumn.setMinWidth(100);
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(fileMenu);
 
-        nameInput = new TextField();
-        nameInput.setPromptText("name");
-        nameInput.setMinWidth(100);
 
-        priceInput = new TextField();
-        priceInput.setPromptText("price");
+        layout = new BorderPane();
+        layout.setTop(menuBar);
 
-        quantityInput = new TextField();
-        quantityInput.setPromptText("quantity");
-
-        Button addButton = new Button("Add");
-        addButton.setOnAction(e -> addButtonClicked());
-        Button deleteButton = new Button("Delete");
-        deleteButton.setOnAction(e -> deleteButtonClicked());
-
-        HBox hBox = new HBox();
-        hBox.setPadding(new Insets(10, 10, 10, 10));
-        hBox.setSpacing(10);
-        hBox.getChildren().addAll(nameInput, priceInput, quantityInput, addButton, deleteButton);
-
-        table = new TableView<>();
-        table.setItems(getProduct());
-        table.getColumns().addAll(nameColumn, priceColumn, quantityColumn);
-
-        VBox layout = new VBox();
-        layout.getChildren().addAll(table, hBox);
-
-        Scene scene = new Scene(layout);
+        Scene scene = new Scene(layout, 300, 200);
         window.setScene(scene);
         window.show();
     }
 
-    public void addButtonClicked(){
-        Product product = new Product();
-        product.setName(nameInput.getText());
-        product.setPrice(Double.parseDouble(priceInput.getText()));
-        product.setQuantity(Integer.parseInt(quantityInput.getText()));
-        table.getItems().add(product);
-        nameInput.clear();
-        priceInput.clear();
-        quantityInput.clear();
-    }
-
-    public void deleteButtonClicked(){
-        ObservableList<Product> productSelected, allProducts;
-        allProducts = table.getItems();
-        productSelected = table.getSelectionModel().getSelectedItems();
-
-        productSelected.forEach(allProducts::remove);
-    }
-
-    public ObservableList<Product> getProduct(){
-        ObservableList<Product> products = FXCollections.observableArrayList();
-        products.add(new Product("Laptop", 859.00, 20));
-        products.add(new Product("Bouncy Ball", 30, 42));
-        products.add(new Product("Toilet", 50, 11));
-        products.add(new Product("The Notebook DVD", 70, 4));
-        products.add(new Product("Corn", 10, 5));
-
-        return products;
-    }
 
     public static void main(String[] args) {
         launch();
