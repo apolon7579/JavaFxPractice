@@ -51,7 +51,9 @@ public class main extends Application{
         quantityInput.setPromptText("quantity");
 
         Button addButton = new Button("Add");
+        addButton.setOnAction(e -> addButtonClicked());
         Button deleteButton = new Button("Delete");
+        deleteButton.setOnAction(e -> deleteButtonClicked());
 
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
@@ -68,6 +70,25 @@ public class main extends Application{
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.show();
+    }
+
+    public void addButtonClicked(){
+        Product product = new Product();
+        product.setName(nameInput.getText());
+        product.setPrice(Double.parseDouble(priceInput.getText()));
+        product.setQuantity(Integer.parseInt(quantityInput.getText()));
+        table.getItems().add(product);
+        nameInput.clear();
+        priceInput.clear();
+        quantityInput.clear();
+    }
+
+    public void deleteButtonClicked(){
+        ObservableList<Product> productSelected, allProducts;
+        allProducts = table.getItems();
+        productSelected = table.getSelectionModel().getSelectedItems();
+
+        productSelected.forEach(allProducts::remove);
     }
 
     public ObservableList<Product> getProduct(){
