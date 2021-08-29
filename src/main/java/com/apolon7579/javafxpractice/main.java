@@ -18,41 +18,48 @@ import java.util.Stack;
 public class main extends Application{
 
     Stage window;
-    Scene scene;
-    Button button;
-    ListView<String> listView;
+    TreeView<String> tree;
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         window = primaryStage;
         window.setTitle("Joon");
-        button = new Button("Submit");
 
-        listView = new ListView<>();
-        listView.getItems().addAll("Iron Man", "Titanic", "Contact", "Surrogates");
-        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        TreeItem<String> root, bucky, megan;
 
-        button.setOnAction(e -> buttonClicked());
+        root = new TreeItem<>();
+        root.setExpanded(true);
 
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(listView, button);
+        bucky = makeBranch("Bucky", root);
+        makeBranch("thenewboston", bucky);
+        makeBranch("YouTube", bucky);
+        makeBranch("Chicken", bucky);
 
-        scene = new Scene(layout, 300, 250);
+        megan = makeBranch("Megan", root);
+        makeBranch("Glitter", megan);
+        makeBranch("Makeup", megan);
+
+        tree = new TreeView<>(root);
+        tree.setShowRoot(false);
+        tree.getSelectionModel().selectedItemProperty().addListener( (v, oldValue, newValue) -> {
+            if(newValue != null)
+                System.out.println(newValue.getValue());
+        });
+
+        StackPane layout = new StackPane();
+        layout.getChildren().add(tree);
+        Scene scene = new Scene(layout, 300, 200);
         window.setScene(scene);
         window.show();
     }
 
-    private void buttonClicked(){
-        String message = "";
-        ObservableList<String> movies;
-        movies = listView.getSelectionModel().getSelectedItems();
+    public TreeItem<String> makeBranch(String title, TreeItem<String> parent){
+        TreeItem<String> item = new TreeItem<>(title);
+        item.setExpanded(true);
+        parent.getChildren().add(item);
 
-        for(String m : movies){
-            message += m + "\n";
-        }
-
-        System.out.println(message);
+        return item;
     }
 
     public static void main(String[] args) {
