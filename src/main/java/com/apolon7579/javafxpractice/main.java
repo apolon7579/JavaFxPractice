@@ -21,6 +21,7 @@ public class main extends Application{
 
     Stage window;
     TableView<Product> table;
+    TextField nameInput, priceInput, quantityInput;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -32,19 +33,37 @@ public class main extends Application{
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         TableColumn<Product, Double> priceColumn = new TableColumn<>("Price");
-        nameColumn.setMinWidth(200);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        priceColumn.setMinWidth(100);
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        TableColumn<Product, Double> quantityColumn = new TableColumn<>("Quantity");
-        nameColumn.setMinWidth(200);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        TableColumn<Product, String> quantityColumn = new TableColumn<>("Quantity");
+        quantityColumn.setMinWidth(100);
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        nameInput = new TextField();
+        nameInput.setPromptText("name");
+        nameInput.setMinWidth(100);
+
+        priceInput = new TextField();
+        priceInput.setPromptText("price");
+
+        quantityInput = new TextField();
+        quantityInput.setPromptText("quantity");
+
+        Button addButton = new Button("Add");
+        Button deleteButton = new Button("Delete");
+
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(10, 10, 10, 10));
+        hBox.setSpacing(10);
+        hBox.getChildren().addAll(nameInput, priceInput, quantityInput, addButton, deleteButton);
 
         table = new TableView<>();
         table.setItems(getProduct());
         table.getColumns().addAll(nameColumn, priceColumn, quantityColumn);
 
         VBox layout = new VBox();
-        layout.getChildren().addAll(table);
+        layout.getChildren().addAll(table, hBox);
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
