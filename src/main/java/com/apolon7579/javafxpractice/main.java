@@ -26,7 +26,7 @@ public class main extends Application{
         grid.setHgap(10);
 
         //Name label
-        Label nameLabel = new Label("Username:");
+        Label nameLabel = new Label("password:");
         GridPane.setConstraints(nameLabel, 0, 0);
 
         //Name input
@@ -34,7 +34,7 @@ public class main extends Application{
         GridPane.setConstraints(nameInput, 1, 0);
 
         //Password label
-        Label passLabel = new Label("password:");
+        Label passLabel = new Label("Username:");
         GridPane.setConstraints(nameLabel, 0, 1);
 
         //Pasword input
