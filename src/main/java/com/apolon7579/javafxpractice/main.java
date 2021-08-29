@@ -27,6 +27,7 @@ public class main extends Application{
 
         //Name label
         Label nameLabel = new Label("password:");
+        nameLabel.setId("bold-label");
         GridPane.setConstraints(nameLabel, 0, 0);
 
         //Name input
@@ -46,8 +47,13 @@ public class main extends Application{
         Button loginButton = new Button("Log in");
         GridPane.setConstraints(loginButton, 1, 2);
 
+        //Sign up
+        Button signUpButton = new Button("Sign Up");
+        signUpButton.getStyleClass().add("button-blue");
+        GridPane.setConstraints(signUpButton, 1, 3);
+
         //Add Everything to grid
-        grid.getChildren().addAll(nameLabel, nameInput, passLabel, passInput, loginButton);
+        grid.getChildren().addAll(nameLabel, nameInput, passLabel, passInput, loginButton, signUpButton);
 
         Scene scene = new Scene(grid, 300, 200);
         scene.getStylesheets().add("Viper.css");
