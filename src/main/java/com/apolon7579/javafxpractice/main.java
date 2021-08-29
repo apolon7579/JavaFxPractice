@@ -62,9 +62,22 @@ public class main extends Application{
         autoSave.setSelected(true);
         helpMenu.getItems().addAll(showLines, autoSave);
 
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu);
+        //Difficulty RadioMenuItems
+        Menu difficultyMenu = new Menu("Difficulty");
+        ToggleGroup difficultyToggle = new ToggleGroup();
 
+        RadioMenuItem easy = new RadioMenuItem("Easy");
+        RadioMenuItem medium = new RadioMenuItem("medium");
+        RadioMenuItem hard = new RadioMenuItem("hard");
+
+        easy.setToggleGroup(difficultyToggle);
+        medium.setToggleGroup(difficultyToggle);
+        hard.setToggleGroup(difficultyToggle);
+        difficultyMenu.getItems().addAll(easy, medium, hard);
+
+        // Main menu bar
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(fileMenu, editMenu, helpMenu, difficultyMenu);
 
         layout = new BorderPane();
         layout.setTop(menuBar);
