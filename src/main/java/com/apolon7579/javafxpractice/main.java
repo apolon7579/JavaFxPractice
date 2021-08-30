@@ -1,6 +1,8 @@
 package com.apolon7579.javafxpractice;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,15 +23,18 @@ public class main extends Application{
         window = primaryStage;
         window.setTitle("Joon");
 
-        Person bucky = new Person();
-        bucky.firstNameProperty().addListener( (v, oldValue, newValue) -> {
-            System.out.println("Name change to " + newValue);
-            System.out.println("firstNameProperty(): " + bucky.firstNameProperty());
-            System.out.println("getFirstName(): " + bucky.getFirstName());
-        } );
+        IntegerProperty x = new SimpleIntegerProperty(3);
+        IntegerProperty y = new SimpleIntegerProperty();
+
+        y.bind(x.multiply(10));
+        System.out.println("x : " + x.getValue());
+        System.out.println("y : " + y.getValue() + "\n");
+
+        x.setValue(9);
+        System.out.println("x : " + x.getValue());
+        System.out.println("y : " + y.getValue() + "\n");
 
         button = new Button("Submit");
-        button.setOnAction(e -> bucky.setFirstName("Porky"));
 
         StackPane layout = new StackPane();
         layout.getChildren().add(button);
